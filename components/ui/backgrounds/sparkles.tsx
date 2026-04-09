@@ -1,40 +1,13 @@
-import * as React from "react";
+"use client";
 
-export type SparklesCoreProps = React.HTMLAttributes<HTMLDivElement> & {
-  /** Optional className for styling */
-  className?: string;
-  /** Optional background color (kept for API compatibility) */
-  background?: string;
-  /** Optional min/max size (kept for API compatibility) */
-  minSize?: number;
-  maxSize?: number;
-  /** Optional particle density (kept for API compatibility) */
-  particleDensity?: number;
-  /** Optional particle color (kept for API compatibility) */
-  particleColor?: string;
-};
-
-/**
- * Lightweight, build-safe placeholder for Sparkles background.
- * Some templates expect `SparklesCore` to be exported from this module.
- */
-export function SparklesCore({
-  className,
-  background,
-  style,
-  ...props
-}: SparklesCoreProps) {
+export default function Sparkles(props: any) {
   return (
-    <div
-      aria-hidden
-      className={className}
-      style={{
-        background: background ?? undefined,
-        ...style,
-      }}
-      {...props}
-    />
+    <section className="w-full py-16 px-4 md:px-8">
+      <div className="max-w-6xl mx-auto">
+        {props.headline && <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{props.headline}</h2>}
+        {props.subheadline && <p className="text-lg text-muted-foreground mb-8 max-w-2xl">{props.subheadline}</p>}
+        {props.children}
+      </div>
+    </section>
   );
 }
-
-export default SparklesCore;

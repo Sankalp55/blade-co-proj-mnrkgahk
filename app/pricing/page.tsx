@@ -1,168 +1,222 @@
 import { PricingTable } from '@/components/blocks/PricingTable'
-import { FeaturesGrid } from '@/components/blocks/FeaturesGrid'
-import { TestimonialsAnimated } from '@/components/blocks/TestimonialsAnimated'
+import { StatsCounter } from '@/components/blocks/StatsCounter'
 import { FAQAccordion } from '@/components/blocks/FAQAccordion'
 import { CTAVortex } from '@/components/blocks/CTAVortex'
 
 export default function PricingPage() {
   return (
-    <div className="bg-background text-foreground">
-      <section className="py-20 md:py-28 px-4 md:px-8">
+    <div>
+      {/* Hero */}
+      <section className="py-16 md:py-28 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold font-[family-name:var(--font-heading)]">
-              Transparent pricing. Premium execution.
+            <h1 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)]">
+              Straightforward Pricing. Premium Results.
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground">
-              Choose a service or bundle. No surprises—just sharp, consistent results in Downtown Manhattan. If you’re
-              not sure what to book, the Signature option covers the most ground and is our most requested.
+            <p className="mt-4 text-muted-foreground">
+              Choose a service or a membership. No hidden add-ons—just better grooming. If you’re not
+              sure what to book, tell us your goal and timing and we’ll guide you to the best fit.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="/contact"
-                className="inline-flex items-center rounded-xl bg-primary px-5 py-3 text-primary-foreground hover:opacity-90 transition-opacity"
+                href="/contact?intent=booking"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
               >
-                Book via Contact
+                Request Appointment
               </a>
               <a
                 href="/services"
-                className="inline-flex items-center rounded-xl border border-border bg-card px-5 py-3 text-foreground hover:shadow-md transition-shadow"
+                className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold"
               >
-                Browse Services
+                See Services
               </a>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12">
-            <PricingTable
-              headline="Service menu"
-              subheadline="Bold pricing for quick scanning—optimized for conversion."
-              tiers={[
-                {
-                  name: 'Essential',
-                  price: '$55',
-                  period: 'per visit',
-                  features: [
-                    'Classic Cut',
-                    'Neckline finish',
-                    'Style + product touch',
-                    '15-min buffer for punctuality',
-                  ],
-                  ctaLabel: 'Choose Essential',
-                  ctaHref: '/contact?service=essential',
-                },
-                {
-                  name: 'Signature',
-                  price: '$85',
-                  period: 'per visit',
-                  highlighted: true,
-                  features: [
-                    'Classic Cut',
-                    'Beard shape + detail',
-                    'Hot towel finish',
-                    'Product matched to hair type',
-                  ],
-                  ctaLabel: 'Choose Signature',
-                  ctaHref: '/contact?service=signature',
-                },
-                {
-                  name: 'Ritual',
-                  price: '$95',
-                  period: 'per visit',
-                  features: ['Hot towel shave', 'Straight razor finish', 'Cold towel reset', 'Aftershave tonic'],
-                  ctaLabel: 'Choose Ritual',
-                  ctaHref: '/contact?service=ritual',
-                },
+      {/* Service pricing */}
+      <section className="py-16 md:py-28 px-4 md:px-8 bg-muted">
+        <div className="max-w-7xl mx-auto">
+          <PricingTable
+            headline="Service Pricing"
+            subheadline="Designed for Downtown schedules—efficient, not rushed."
+            tiers={[
+              {
+                name: 'Classic Cut',
+                price: '$65',
+                period: 'per visit',
+                features: ['Consultation', 'Precision cut', 'Neck cleanup', 'Style finish'],
+                ctaLabel: 'Book Classic',
+                ctaHref: '/contact?intent=booking&service=classic-cut',
+              },
+              {
+                name: 'Cut + Beard',
+                price: '$95',
+                period: 'per visit',
+                features: [
+                  'Classic or modern cut',
+                  'Beard trim + line-up',
+                  'Hot towel finish',
+                  'Product guidance',
+                ],
+                ctaLabel: 'Book Combo',
+                ctaHref: '/contact?intent=booking&service=cut-beard',
+                highlighted: true,
+              },
+              {
+                name: 'Hot Towel Shave',
+                price: '$70',
+                period: 'per visit',
+                features: ['Pre-shave oil', 'Hot towel prep', 'Straight razor shave', 'Aftershave balm'],
+                ctaLabel: 'Book Shave',
+                ctaHref: '/contact?intent=booking&service=hot-towel-shave',
+              },
+            ]}
+          />
+
+          <div className="mt-10 rounded-2xl border border-border bg-background p-6">
+            <h3 className="text-xl font-semibold font-[family-name:var(--font-heading)]">
+              What’s included (at a glance)
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Every service includes a quick consult and a finish that matches your routine. Combo
+              services include hot towel finishing where it makes sense—comfort and clean edges.
+            </p>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+              {[
+                { label: 'Consultation', values: ['Included', 'Included', 'Included'] },
+                { label: 'Hot towel', values: ['—', 'Included', 'Included'] },
+                { label: 'Beard line-up', values: ['—', 'Included', '—'] },
+                { label: 'Routine guidance', values: ['Included', 'Included', 'Included'] },
+              ].map((row) => (
+                <div key={row.label} className="rounded-xl border border-border bg-muted p-4">
+                  <p className="font-semibold">{row.label}</p>
+                  <ul className="mt-2 space-y-1 text-muted-foreground">
+                    <li>Classic: {row.values[0]}</li>
+                    <li>Combo: {row.values[1]}</li>
+                    <li>Shave: {row.values[2]}</li>
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Memberships */}
+      <section id="memberships" className="py-16 md:py-28 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <PricingTable
+            headline="Memberships"
+            subheadline="For clients who like consistency (and priority access)."
+            tiers={[
+              {
+                name: 'Line-Up Club',
+                price: '$49',
+                period: 'per month',
+                features: ['1 neck + line-up refresh per month', '10% off products', 'Priority booking window'],
+                ctaLabel: 'Join Line-Up Club',
+                ctaHref: '/contact?intent=membership&plan=line-up-club',
+              },
+              {
+                name: 'Downtown Regular',
+                price: '$119',
+                period: 'per month',
+                features: [
+                  '1 Classic Cut per month',
+                  '1 Beard Groom per month',
+                  '15% off products',
+                  'Priority booking window',
+                ],
+                ctaLabel: 'Join Downtown Regular',
+                ctaHref: '/contact?intent=membership&plan=downtown-regular',
+                highlighted: true,
+              },
+              {
+                name: 'The Full Ritual',
+                price: '$179',
+                period: 'per month',
+                features: [
+                  '1 Cut + Beard per month',
+                  '1 Line-up refresh',
+                  '1 Hot towel shave (every 2 months)',
+                  '20% off products',
+                ],
+                ctaLabel: 'Join Full Ritual',
+                ctaHref: '/contact?intent=membership&plan=full-ritual',
+              },
+            ]}
+          />
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-16 md:py-28 px-4 md:px-8 bg-muted">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)]">
+              Why It’s Worth It
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              Premium time, premium consistency. We’d rather do fewer appointments per day and keep the
+              standard high—clean sections, controlled transitions, and finishing that holds up.
+            </p>
+          </div>
+          <div className="mt-10">
+            <StatsCounter
+              stats={[
+                { label: 'Avg. rebook rate', value: '78', suffix: '%' },
+                { label: 'Same-day slot drops', value: '10', suffix: 'am' },
+                { label: 'Return clients', value: '4', suffix: '/5' },
+                { label: 'Downtown pickup', value: 'Free' },
               ]}
             />
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28 px-4 md:px-8 bg-muted">
-        <div className="max-w-7xl mx-auto">
-          <FeaturesGrid
-            badge="Upgrades"
-            headline="Add-ons"
-            subheadline="Small upgrades that make a big difference—ideal when you want a little extra polish without changing the whole service."
-            features={[
-              { title: 'Cleanup / Lineup', description: '$25 — quick edge refresh between cuts.' },
-              { title: 'Beard Conditioning', description: '$12 — oil + balm finish tailored to density.' },
-              { title: 'Scalp Massage', description: '$15 — tension relief with a clean finish.' },
-              { title: 'Style Lesson', description: '$20 — a simple routine you can repeat daily.' },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <TestimonialsAnimated
-            headline="Worth the chair time"
-            subheadline="Clients come back for consistency—especially before big days."
-            testimonials={[
-              {
-                quote: 'Signature package is the move. I leave looking put together every time.',
-                name: 'Chris W.',
-                role: 'Downtown',
-                company: 'Client',
-              },
-              {
-                quote: 'The shave ritual is unreal—smooth, zero irritation.',
-                name: 'Omar H.',
-                role: 'Manhattan',
-                company: 'Client',
-              },
-              {
-                quote: 'Cleanest taper I’ve found. The detail work is meticulous.',
-                name: 'Sam T.',
-                role: 'NYC',
-                company: 'Client',
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 px-4 md:px-8 bg-muted">
+      {/* FAQ */}
+      <section className="py-16 md:py-28 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <FAQAccordion
             headline="Pricing FAQ"
-            subheadline="Quick details so you can book confidently."
+            subheadline="Quick answers before you book."
             items={[
               {
-                question: 'Do you take walk-ins?',
+                question: 'Do you accept walk-ins?',
                 answer:
-                  'Yes when availability allows, but appointments are recommended for peak hours—especially Thursday through Saturday.',
+                  'When availability allows. For peak hours, appointments are strongly recommended. If you’re nearby, message us with your window and we’ll confirm quickly.',
               },
               {
-                question: 'Do prices vary by barber?',
+                question: 'Are tips included?',
                 answer:
-                  'This menu is standardized for consistency. Specialty requests can be discussed during consultation so expectations stay clear.',
+                  'Tips are appreciated but not included. You’ll have the option to tip in person.',
               },
               {
-                question: 'What if I’m not sure what to book?',
+                question: 'Can I switch membership plans?',
                 answer:
-                  'Choose Signature for the most complete option, or message us via Contact with your goals and we’ll recommend the right service.',
+                  'Yes—tell us before your next billing cycle and we’ll adjust your plan so it matches your schedule.',
+              },
+              {
+                question: 'Do memberships include products?',
+                answer:
+                  'Products are discounted, not included—so you only buy what you use. Members get priority access to small-batch drops.',
               },
             ]}
           />
         </div>
       </section>
 
-      <section className="py-20 md:py-28 px-4 md:px-8">
+      <section className="py-16 md:py-28 px-4 md:px-8 bg-muted">
         <div className="max-w-7xl mx-auto">
           <CTAVortex
-            headline="Book your next cut in Downtown Manhattan"
-            description="Send your preferred day/time and we’ll confirm availability. If you have a reference photo, include it—matching the finish is easier when we can see the goal."
-            ctaLabel="Contact to Book"
-            ctaHref="/contact"
+            headline="Book once—or lock in consistency."
+            description="If you want a cut that looks better a week later, the routine matters. Tell us your schedule and we’ll recommend the right cadence."
+            ctaLabel="Request a Booking"
+            ctaHref="/contact?intent=booking"
           />
-          <div className="mt-4">
-            <a href="/shop" className="text-sm text-muted-foreground underline underline-offset-4">
-              Want to keep the look between visits? Shop products →
-            </a>
-          </div>
         </div>
       </section>
     </div>

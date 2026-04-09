@@ -1,9 +1,7 @@
 import './globals.css'
-
 import type { Metadata } from 'next'
 import { Montserrat, Playfair_Display } from 'next/font/google'
-
-import { NavbarMinimal } from '@/components/blocks/NavbarMinimal'
+import { NavbarGlass } from '@/components/blocks/NavbarGlass'
 import { FooterMultiColumn } from '@/components/blocks/FooterMultiColumn'
 
 const bodyFont = Montserrat({
@@ -19,16 +17,19 @@ const headingFont = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Blade & Co. | Premium Barbershop in Downtown Manhattan',
+  title:
+    'Blade & Co. — Premium Barbershop & Grooming Essentials in Downtown Manhattan',
   description:
-    'Classic cuts, beard grooming, hot towel shaves, and modern styling—served in a dark, moody, gold-accent Downtown Manhattan barbershop. Shop grooming essentials and book your next appointment.',
+    'Blade & Co. delivers classic cuts, beard grooming, hot towel shaves, and modern styling in Downtown Manhattan. Shop premium grooming essentials online or pick up in-store.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${bodyFont.className} ${headingFont.variable} bg-background text-foreground`}>
-        <NavbarMinimal
+      <body
+        className={`${bodyFont.className} ${headingFont.variable} bg-background text-foreground`}
+      >
+        <NavbarGlass
           logo="Blade & Co."
           navItems={[
             { label: 'Home', href: '/' },
@@ -38,40 +39,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             { label: 'About', href: '/about' },
             { label: 'Contact', href: '/contact' },
           ]}
-          ctaLabel="Book"
-          ctaHref="/contact"
+          ctaLabel="Cart"
+          ctaHref="/shop#cart"
         />
         <main>{children}</main>
         <FooterMultiColumn
           brand="Blade & Co."
-          description="Downtown Manhattan’s modern classic barbershop—precision cuts, beard mastery, and hot towel shaves in a moody, gold-lit space. Shop the essentials we use in-chair and keep your routine sharp between visits."
+          description="Downtown Manhattan grooming—classic craft, modern edge. Shop barber-approved essentials online, or coordinate a fast pickup downtown after your workday."
           columns={[
-            {
-              title: 'Services',
-              links: [
-                { label: 'Classic Cuts', href: '/services#classic-cuts' },
-                { label: 'Beard Grooming', href: '/services#beard' },
-                { label: 'Hot Towel Shaves', href: '/services#shaves' },
-                { label: 'Modern Styling', href: '/services#modern' },
-                { label: 'Pricing', href: '/pricing' },
-              ],
-            },
             {
               title: 'Shop',
               links: [
-                { label: 'Best Sellers', href: '/shop#best-sellers' },
-                { label: 'Styling', href: '/shop#styling' },
-                { label: 'Beard', href: '/shop#beard' },
-                { label: 'Shave', href: '/shop#shave' },
-                { label: 'Tools', href: '/shop#tools' },
+                { label: 'All Products', href: '/shop' },
+                { label: 'Shave & Prep', href: '/shop?category=shave' },
+                { label: 'Beard & Mustache', href: '/shop?category=beard' },
+                { label: 'Hair Styling', href: '/shop?category=styling' },
+                { label: 'Tools & Accessories', href: '/shop?category=tools' },
+                { label: 'Bundles', href: '/shop?category=bundles' },
+              ],
+            },
+            {
+              title: 'Services',
+              links: [
+                { label: 'Service Menu', href: '/services#menu' },
+                { label: 'Request an Appointment', href: '/contact?intent=booking' },
+                { label: 'Memberships', href: '/pricing#memberships' },
+                { label: 'Pricing', href: '/pricing' },
               ],
             },
             {
               title: 'Company',
               links: [
-                { label: 'About', href: '/about' },
-                { label: 'Contact', href: '/contact' },
-                { label: 'Hours & Location', href: '/contact#map' },
+                { label: 'About Blade & Co.', href: '/about' },
+                { label: 'Downtown Pickup', href: '/contact#location' },
+                { label: 'Hours & Contact', href: '/contact' },
+              ],
+            },
+            {
+              title: 'Support',
+              links: [
+                { label: 'Shipping & Returns', href: '/shop#shipping-returns' },
+                { label: 'Order Help', href: '/contact?intent=order-help' },
+                { label: 'Product Questions', href: '/contact?intent=product' },
               ],
             },
           ]}

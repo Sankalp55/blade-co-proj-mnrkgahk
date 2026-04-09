@@ -1,247 +1,322 @@
-import { FeaturesCards3D } from '@/components/blocks/FeaturesCards3D'
+import { FeaturesGrid } from '@/components/blocks/FeaturesGrid'
 import { FAQAccordion } from '@/components/blocks/FAQAccordion'
-import { StatsCounter } from '@/components/blocks/StatsCounter'
-import { CTASparkles } from '@/components/blocks/CTASparkles'
-import { ParallaxScroll } from '@/components/ui/effects/ParallaxScroll'
-import { MovingBorder } from '@/components/ui/effects/MovingBorder'
+import { CTAVortex } from '@/components/blocks/CTAVortex'
 
-export default function ShopPage() {
+const products = [
+  {
+    name: 'Manhattan Matte Clay',
+    price: '$24',
+    tag: 'Best Seller',
+    href: '/shop/manhattan-matte-clay',
+    category: 'styling',
+    goal: 'texture',
+    hold: 'strong',
+    finish: 'matte',
+  },
+  {
+    name: 'Classic Pomade — Medium Hold',
+    price: '$22',
+    tag: 'Classic',
+    href: '/shop/classic-pomade-medium',
+    category: 'styling',
+    goal: 'shine',
+    hold: 'medium',
+    finish: 'shine',
+  },
+  {
+    name: 'Sea Salt Texture Spray',
+    price: '$20',
+    tag: 'Modern',
+    href: '/shop/sea-salt-texture-spray',
+    category: 'styling',
+    goal: 'texture',
+    hold: 'light',
+    finish: 'matte',
+  },
+  {
+    name: 'Gold Label Beard Oil',
+    price: '$28',
+    tag: 'New',
+    href: '/shop/gold-label-beard-oil',
+    category: 'beard',
+    goal: 'beard-control',
+    hold: 'light',
+    finish: 'natural',
+  },
+  {
+    name: 'Beard Balm — Firm',
+    price: '$26',
+    tag: 'Control',
+    href: '/shop/beard-balm-firm',
+    category: 'beard',
+    goal: 'beard-control',
+    hold: 'firm',
+    finish: 'natural',
+  },
+  {
+    name: 'Boar Bristle Brush',
+    price: '$18',
+    tag: 'Tool',
+    href: '/shop/boar-bristle-brush',
+    category: 'tools',
+    goal: 'beard-control',
+    hold: 'n/a',
+    finish: 'n/a',
+  },
+  {
+    name: 'Hot Towel Aftershave Balm',
+    price: '$26',
+    tag: 'Sensitive Skin',
+    href: '/shop/hot-towel-aftershave-balm',
+    category: 'shave',
+    goal: 'shave-comfort',
+    hold: 'n/a',
+    finish: 'n/a',
+  },
+  {
+    name: 'Pre-Shave Oil',
+    price: '$24',
+    tag: 'Prep',
+    href: '/shop/pre-shave-oil',
+    category: 'shave',
+    goal: 'shave-comfort',
+    hold: 'n/a',
+    finish: 'n/a',
+  },
+]
+
+function getParam(value: string | null) {
+  return value?.toLowerCase().trim() ?? ''
+}
+
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const sp = await searchParams
+  const category = getParam(typeof sp.category === 'string' ? sp.category : null)
+  const goal = getParam(typeof sp.goal === 'string' ? sp.goal : null)
+  const sort = getParam(typeof sp.sort === 'string' ? sp.sort : null)
+
+  let filtered = [...products]
+  if (category) filtered = filtered.filter((p) => p.category === category)
+  if (goal) filtered = filtered.filter((p) => p.goal === goal)
+
+  if (sort === 'bestsellers') {
+    filtered.sort((a, b) => (a.tag === 'Best Seller' ? -1 : 1) - (b.tag === 'Best Seller' ? -1 : 1))
+  }
+
   return (
-    <div className="bg-background text-foreground">
-      <section className="py-20 md:py-28 px-4 md:px-8">
+    <div>
+      {/* Hero (custom section) */}
+      <section className="py-16 md:py-28 px-4 md:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
-            <h1 className="text-4xl md:text-6xl font-bold font-[family-name:var(--font-heading)]">
-              Grooming goods with barbershop standards
+            <h1 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)]">
+              The Blade & Co. Shelf
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground">
-              Curated essentials for hold, hydration, and a clean finish—built for daily use and NYC pace. This shop is
-              a front-end demo experience (no backend checkout), designed to show product storytelling, category
-              navigation, and conversion-friendly layouts.
+            <p className="mt-4 text-muted-foreground">
+              Grooming essentials curated for classic cuts, beard discipline, and clean finishes—shipped
+              fast or picked up downtown. Everything here is chosen for repeatable results: easy to use,
+              easy to re-buy, and aligned to what we apply in-chair.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#best-sellers"
-                className="inline-flex items-center rounded-xl bg-primary px-5 py-3 text-primary-foreground hover:opacity-90 transition-opacity"
+                href="/shop?sort=bestsellers"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
               >
-                Browse best sellers
+                Browse Best Sellers
               </a>
               <a
-                href="#categories"
-                className="inline-flex items-center rounded-xl border border-border bg-card px-5 py-3 text-foreground hover:shadow-md transition-shadow"
+                href="/shop?category=beard"
+                className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold"
               >
-                Shop by category
+                Shop Beard
               </a>
             </div>
-            <div className="mt-8 rounded-3xl border border-border bg-card p-6">
-              <p className="text-sm text-muted-foreground">
-                What we optimize for:
-              </p>
-              <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                <li className="text-foreground">• Fast product selection</li>
-                <li className="text-foreground">• Clear hold/finish guidance</li>
-                <li className="text-foreground">• Low-friction category browsing</li>
-                <li className="text-foreground">• Premium, minimal aesthetic</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-border bg-card shadow-sm overflow-hidden">
-            <div className="p-6">
-              <p className="text-sm text-muted-foreground">Featured imagery</p>
-              <p className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-semibold">
-                Gold-accent lineup, dark counter
-              </p>
-              <p className="mt-3 text-muted-foreground">
-                Use high-contrast product photography—labels readable, textures visible, and lighting consistent.
-              </p>
-            </div>
-            <div className="px-6 pb-6">
-              <MovingBorder duration={3200}>
-                <div className="rounded-2xl border border-border bg-muted p-6">
-                  <p className="text-sm text-muted-foreground">
-                    Image placeholder (expects /images/shop-hero.jpg in your public folder)
-                  </p>
-                  <div className="mt-4 h-48 w-full rounded-xl border border-border bg-card" />
-                </div>
-              </MovingBorder>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="categories" className="py-20 md:py-28 px-4 md:px-8 bg-muted">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)]">
-              Shop by category
-            </h2>
-            <p className="mt-4 text-muted-foreground text-lg">Get exactly what you need—no clutter.</p>
-          </div>
-
-          <div className="mt-10">
-            <ParallaxScroll
-              images={[
-                '/images/product-clay.jpg',
-                '/images/product-pomade.jpg',
-                '/images/product-beard-oil.jpg',
-                '/images/product-tonic.jpg',
-                '/images/shop-hero.jpg',
-                '/images/services-hero.jpg',
-              ]}
-            />
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Styling', description: 'Clays, pomades, creams', href: '#styling' },
-              { title: 'Beard', description: 'Oils, balms, combs', href: '#beard' },
-              { title: 'Shave', description: 'Tonic, prep, post', href: '#shave' },
-              { title: 'Tools', description: 'Brushes, trimmers, travel', href: '#tools' },
-            ].map((c) => (
-              <a
-                key={c.title}
-                href={c.href}
-                className="rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <p className="text-xl font-semibold font-[family-name:var(--font-heading)]">{c.title}</p>
-                <p className="mt-2 text-muted-foreground">{c.description}</p>
-                <p className="mt-4 text-sm text-foreground">Browse →</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="best-sellers" className="py-20 md:py-28 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <FeaturesCards3D
-            badge="Client favorites"
-            headline="Best sellers"
-            subheadline="The top picks clients re-order—because they work. Add-to-cart buttons are demo-only (no backend)."
-            features={[
-              {
-                title: 'Gilded Matte Clay — $24',
-                description: 'Strong hold, matte finish, reworkable texture. Built for movement, not stiffness.',
-              },
-              {
-                title: 'Downtown Pomade — $22',
-                description: 'Medium hold with clean shine for traditional styles and controlled slick looks.',
-              },
-              {
-                title: 'Razor-Soft Beard Oil — $28',
-                description: 'Softens, conditions, and reduces itch without residue—warm sandalwood profile.',
-              },
-            ]}
-          />
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                id: 'clay',
-                name: 'Gilded Matte Clay',
-                price: '$24',
-                badge: 'Best Seller',
-                description:
-                  'Strong hold with a matte finish—ideal for textured crops and classic side parts. Apply to dry hair for maximum grip.',
-              },
-              {
-                id: 'pomade',
-                name: 'Downtown Pomade',
-                price: '$22',
-                badge: 'Classic',
-                description:
-                  'Medium hold with controlled shine. Great for combed parts, slick backs, and polished office-ready styles.',
-              },
-              {
-                id: 'beard-oil',
-                name: 'Razor-Soft Beard Oil',
-                price: '$28',
-                badge: 'New',
-                description:
-                  'Lightweight conditioning that reduces itch and keeps the beard looking intentional—no greasy finish.',
-              },
-            ].map((p) => (
-              <div key={p.id} id={p.id} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">{p.badge}</p>
-                    <p className="mt-1 text-xl font-semibold font-[family-name:var(--font-heading)]">{p.name}</p>
-                  </div>
-                  <p className="text-lg font-bold">{p.price}</p>
-                </div>
-                <p className="mt-3 text-muted-foreground">{p.description}</p>
-                <a
-                  href={`#${p.id}`}
-                  className="mt-5 inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2 text-primary-foreground hover:opacity-90 transition-opacity"
-                >
-                  Add to cart (demo)
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 px-4 md:px-8 bg-muted">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)]">
-              No guessing—only proven formulas
-            </h2>
-            <p className="mt-4 text-muted-foreground text-lg">
-              Products selected for performance and skin comfort. If you’re not sure what to choose, start with your
-              desired finish (matte vs. shine) and hair density—we’ll point you to the right jar.
+            <p className="mt-4 text-sm text-muted-foreground">
+              Tip: If you’re not sure what to pick, start with one styling product and one comfort product
+              (beard oil or aftershave balm). That’s the highest impact routine.
             </p>
           </div>
-          <div className="mt-10">
-            <StatsCounter
-              stats={[
-                { label: 'Hold levels', value: '3' },
-                { label: 'Fragrance profile', value: 'Low' },
-                { label: 'Daily use', value: 'Yes' },
-                { label: 'Barber tested', value: '100%', suffix: '' },
-              ]}
-            />
+
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <div className="aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-muted">
+              {/* Decorative image block */}
+              <div className="h-full w-full bg-muted" />
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Editorial lineup: black stone, minimal labels, gold foil highlights—built to look premium,
+              built to perform daily.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28 px-4 md:px-8">
+      {/* Category nav (custom) */}
+      <section className="py-16 md:py-28 px-4 md:px-8 bg-muted">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)]">
+              Find Your Routine
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              Navigate by goal—hold, shine, comfort, or shape. These are the same “what do you want it to
+              do?” categories we use during a quick consult.
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: 'Texture & Volume', desc: 'Clays and powders for modern matte.', href: '/shop?goal=texture' },
+              { title: 'Classic Shine', desc: 'Pomades for slick parts and clean comb lines.', href: '/shop?goal=shine' },
+              { title: 'Beard Control', desc: 'Oil + balm combos for training.', href: '/shop?goal=beard-control' },
+              { title: 'Shave Comfort', desc: 'Prep and balm for irritation-free finish.', href: '/shop?goal=shave-comfort' },
+            ].map((i) => (
+              <a
+                key={i.href}
+                href={i.href}
+                className="rounded-xl border border-border bg-background p-5 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <p className="font-semibold">{i.title}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{i.desc}</p>
+                <p className="mt-4 text-sm font-semibold text-foreground">Explore →</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Product grid (custom) */}
+      <section className="py-16 md:py-28 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)]">
+                All Products
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Tight grid, quick add—built for conversion. Filter by category or goal using the links
+                above (client-side only), then open a product page for details.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-muted px-4 py-3 text-sm text-muted-foreground">
+              Showing <span className="font-semibold text-foreground">{filtered.length}</span> items
+              {category ? (
+                <>
+                  {' '}
+                  in <span className="font-semibold text-foreground">{category}</span>
+                </>
+              ) : null}
+              {goal ? (
+                <>
+                  {' '}
+                  for <span className="font-semibold text-foreground">{goal}</span>
+                </>
+              ) : null}
+              .
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filtered.map((p) => (
+              <a
+                key={p.href}
+                href={p.href}
+                className="rounded-xl border border-border bg-card p-4 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="aspect-square w-full rounded-lg border border-border bg-muted" />
+                <div className="mt-4 flex items-start justify-between gap-3">
+                  <p className="font-semibold leading-snug">{p.name}</p>
+                  <span className="text-xs rounded-full border border-border px-2 py-1 text-muted-foreground">
+                    {p.tag}
+                  </span>
+                </div>
+                <p className="mt-2 text-lg font-bold">{p.price}</p>
+                <div className="mt-4 w-full rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground">
+                  Quick Add
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-12">
+            <FeaturesGrid
+              badge="Bundles"
+              headline="Bundles That Actually Make Sense"
+              subheadline="Three-step kits aligned to our chair-side process—built to reduce decision fatigue and keep your routine consistent."
+              features={[
+                {
+                  title: 'The Clean Shave Kit',
+                  description:
+                    'Pre-shave oil + lather + aftershave balm. Designed for comfort and a crisp finish, especially for sensitive skin and frequent shavers.',
+                },
+                {
+                  title: 'The Beard Discipline Kit',
+                  description:
+                    'Oil + balm + carbon comb. Softens, shapes, and trains growth so your beard looks intentional—not accidental.',
+                },
+                {
+                  title: 'The Downtown Styling Kit',
+                  description:
+                    'Matte clay + texture spray. Modern hold without shine—great for quick morning styling and all-day structure.',
+                },
+              ]}
+            />
+            <div className="mt-6">
+              <a
+                href="/shop?category=bundles"
+                className="inline-flex rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+              >
+                Shop Bundles
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="shipping-returns" className="py-16 md:py-28 px-4 md:px-8 bg-muted">
         <div className="max-w-7xl mx-auto">
           <FAQAccordion
-            headline="Shop FAQ"
-            subheadline="Quick answers before you check out (demo store experience)."
+            headline="Shipping & Returns"
+            subheadline="Clear policies—no fine print energy."
             items={[
               {
-                question: 'Do you ship or is it in-store pickup only?',
+                question: 'How fast do orders ship?',
                 answer:
-                  'This demo blueprint supports either. In a real store, you’d list shipping zones and pickup details here. Checkout is UI-only in this build (no backend).',
+                  'Orders typically ship in 1–2 business days. NYC deliveries often arrive faster depending on carrier volume. You’ll receive tracking as soon as your label is created.',
               },
               {
-                question: 'Which product is best for thick hair?',
+                question: 'Do you offer store pickup?',
                 answer:
-                  'Start with Gilded Matte Clay for strong hold and texture. If you prefer a slick, controlled finish, choose Downtown Pomade.',
+                  'Yes—choose Downtown Manhattan pickup at checkout and we’ll email when it’s ready. If you’re trying to grab it same-day, include your preferred pickup window in your note.',
               },
               {
-                question: 'Are products safe for sensitive skin?',
+                question: 'What’s your return policy?',
                 answer:
-                  'We prioritize low-irritant formulas and a clean finish. If you’re sensitive, patch test—especially with post-shave products.',
+                  'Unused items may be returned within 30 days. If something arrives damaged, contact us and we’ll make it right—quickly and without hassle.',
+              },
+              {
+                question: 'Are your products strongly scented?',
+                answer:
+                  'We keep fragrance refined and barbershop-clean—never overpowering. The goal is “fresh and subtle,” not “you entered the room five minutes ago.”',
               },
             ]}
           />
         </div>
       </section>
 
-      <section className="py-20 md:py-28 px-4 md:px-8 bg-muted">
+      <section className="py-16 md:py-28 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <CTASparkles
-            headline="Limited batches sell out fast"
-            description="Get notified when restocks land and when we drop seasonal scents. (Demo signup—client-side only.)"
-            ctaLabel="Notify me"
-            ctaHref="/contact"
+          <CTAVortex
+            headline="Need a recommendation?"
+            description="Tell us your hair type, beard length, and finish preference. We’ll point you to a simple routine you can actually keep."
+            ctaLabel="Ask a Barber"
+            ctaHref="/contact?intent=product"
           />
-          <p className="mt-4 text-sm text-muted-foreground">Unsubscribe anytime.</p>
         </div>
       </section>
     </div>

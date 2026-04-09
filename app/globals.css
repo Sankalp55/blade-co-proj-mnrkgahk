@@ -5,46 +5,48 @@
 @tailwind utilities;
 
 :root {
-  /* Blade & Co. palette (HSL derived from hex) */
-  --background: 240 22% 5%; /* #0B0B10 */
-  --foreground: 43 26% 94%; /* #F3F1EA */
+  /* Typography */
+  --font-heading: "Playfair Display";
+  --font-body: "Montserrat";
 
-  --card: 240 19% 9%; /* #12121A */
+  /* Blade & Co. palette (HSL derived from blueprint hex) */
+  --background: 240 20% 5%; /* #0B0B10 */
+  --foreground: 43 30% 93%; /* #F3F0E8 */
 
-  --primary: 46 65% 53%; /* #D4AF37 */
-  --primary-foreground: 240 22% 5%; /* #0B0B10 */
+  --primary: 43 54% 53%; /* #C8A24A */
+  --primary-foreground: 240 20% 5%; /* #0B0B10 */
 
-  --secondary: 240 15% 12%; /* #1B1B24 */
-  --secondary-foreground: 43 26% 94%; /* #F3F1EA */
+  --secondary: 220 21% 16%; /* #1F2430 */
+  --secondary-foreground: 43 30% 93%; /* #F3F0E8 */
 
   --accent: 355 78% 56%; /* #E63946 */
 
-  --muted: 240 19% 9%; /* #12121A */
-  --muted-foreground: 46 9% 70%; /* #B9B6AE */
+  --muted: 225 28% 11%; /* #141824 */
+  --muted-foreground: 43 13% 69%; /* #B8B2A6 */
 
-  --border: 240 13% 19%; /* #2A2A36 */
-  --ring: 46 65% 53%; /* #D4AF37 */
+  --card: 224 36% 10%; /* #101522 */
+  --border: 220 18% 20%; /* #2A2F3C */
+  --ring: 43 54% 53%; /* #C8A24A */
 }
 
 .dark {
-  --background: 240 22% 5%;
-  --foreground: 43 26% 94%;
+  --background: 240 20% 5%;
+  --foreground: 43 30% 93%;
 
-  --card: 240 19% 9%;
+  --primary: 43 54% 53%;
+  --primary-foreground: 240 20% 5%;
 
-  --primary: 46 65% 53%;
-  --primary-foreground: 240 22% 5%;
-
-  --secondary: 240 15% 12%;
-  --secondary-foreground: 43 26% 94%;
+  --secondary: 220 21% 16%;
+  --secondary-foreground: 43 30% 93%;
 
   --accent: 355 78% 56%;
 
-  --muted: 240 19% 9%;
-  --muted-foreground: 46 9% 70%;
+  --muted: 225 28% 11%;
+  --muted-foreground: 43 13% 69%;
 
-  --border: 240 13% 19%;
-  --ring: 46 65% 53%;
+  --card: 224 36% 10%;
+  --border: 220 18% 20%;
+  --ring: 43 54% 53%;
 }
 
 @layer base {
@@ -57,16 +59,11 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: theme("fontFamily.body");
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: theme("fontFamily.heading");
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
   }
 }

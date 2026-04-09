@@ -10,29 +10,28 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
 
         card: "hsl(var(--card))",
-
-        primary: "hsl(var(--primary))",
-        "primary-foreground": "hsl(var(--primary-foreground))",
-
-        secondary: "hsl(var(--secondary))",
-        "secondary-foreground": "hsl(var(--secondary-foreground))",
-
-        accent: "hsl(var(--accent))",
-
-        muted: "hsl(var(--muted))",
-        "muted-foreground": "hsl(var(--muted-foreground))",
-
         border: "hsl(var(--border))",
-        ring: "hsl(var(--ring))"
+        ring: "hsl(var(--ring))",
+
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))"
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))"
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))"
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))"
+        }
       },
       fontFamily: {
-        heading: ['"Playfair Display"', "serif"],
-        body: ['"Montserrat"', "ui-sans-serif", "system-ui", "sans-serif"]
-      },
-      borderRadius: {
-        lg: "0.5rem",
-        md: "calc(0.5rem - 2px)",
-        sm: "calc(0.5rem - 4px)"
+        heading: ["var(--font-heading)", "serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"]
       }
     }
   },
