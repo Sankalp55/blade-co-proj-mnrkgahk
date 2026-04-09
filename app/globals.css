@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Blade & Co. palette (HSL derived from hex) */
+  --background: 240 22% 5%; /* #0B0B10 */
+  --foreground: 43 26% 94%; /* #F3F1EA */
+
+  --card: 240 19% 9%; /* #12121A */
+
+  --primary: 46 65% 53%; /* #D4AF37 */
+  --primary-foreground: 240 22% 5%; /* #0B0B10 */
+
+  --secondary: 240 15% 12%; /* #1B1B24 */
+  --secondary-foreground: 43 26% 94%; /* #F3F1EA */
+
+  --accent: 355 78% 56%; /* #E63946 */
+
+  --muted: 240 19% 9%; /* #12121A */
+  --muted-foreground: 46 9% 70%; /* #B9B6AE */
+
+  --border: 240 13% 19%; /* #2A2A36 */
+  --ring: 46 65% 53%; /* #D4AF37 */
+}
+
+.dark {
+  --background: 240 22% 5%;
+  --foreground: 43 26% 94%;
+
+  --card: 240 19% 9%;
+
+  --primary: 46 65% 53%;
+  --primary-foreground: 240 22% 5%;
+
+  --secondary: 240 15% 12%;
+  --secondary-foreground: 43 26% 94%;
+
+  --accent: 355 78% 56%;
+
+  --muted: 240 19% 9%;
+  --muted-foreground: 46 9% 70%;
+
+  --border: 240 13% 19%;
+  --ring: 46 65% 53%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: theme("fontFamily.body");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: theme("fontFamily.heading");
+  }
+}
